@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
 {
-    [SerializeField] private GameObject asteroidPrefab;
-
     private void Update()
     {
         // TODO destroy it if it goes off screen.
@@ -26,8 +24,10 @@ public class AsteroidScript : MonoBehaviour
             Debug.Log("Creating children asteroids.");
 
             // Create children.
-            GameObject leftChild = Instantiate(asteroidPrefab);
-            GameObject rightChild = Instantiate(asteroidPrefab);
+            GameObject leftChild = 
+                Instantiate(GameManager.instance.GetRandomRockPrefab());
+            GameObject rightChild = 
+                Instantiate(GameManager.instance.GetRandomRockPrefab());
 
             // Set parent.
             leftChild.transform.parent = transform.parent;
@@ -52,5 +52,7 @@ public class AsteroidScript : MonoBehaviour
         }
         Destroy(gameObject);
         Destroy(collision.gameObject);
+
+        // TODO create explosion.
     }
 }

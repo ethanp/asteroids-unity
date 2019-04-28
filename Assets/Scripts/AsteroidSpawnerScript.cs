@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class AsteroidSpawnerScript : MonoBehaviour
 {
-
-    [SerializeField] private GameObject asteroidPrefab;
-
     [SerializeField] private float timeToSpawn;
     private float lastSpawned = 0;
 
@@ -16,15 +13,11 @@ public class AsteroidSpawnerScript : MonoBehaviour
         if (Time.time - lastSpawned > timeToSpawn)
         {
             lastSpawned = Time.time;
-            if (asteroidPrefab != null)
-            {
-                GameObject newAsteroid = Instantiate(asteroidPrefab);
-                positionAsteroid(newAsteroid);
-            }
-            else
-            {
-                Debug.LogWarning("asteroidPrefab was null.");
-            }
+            GameObject newAsteroid = 
+                Instantiate(GameManager.instance.GetRandomRockPrefab());
+            newAsteroid.transform.localScale =
+                Vector3.one * Random.Range(0.6f, 6.0f);
+            positionAsteroid(newAsteroid);
         }
 
     }
@@ -39,6 +32,7 @@ public class AsteroidSpawnerScript : MonoBehaviour
         }
         asteroid.transform.position = createRandomLocation();
 
+        // TODO This should be a `while`-loop, but it was infinite-looping.
         if (GameManager.instance.OverlapsExistingObject(asteroid))
         {
             Debug.Log("Going to another spot.");
