@@ -23,7 +23,7 @@ public class AsteroidScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Asteroid got hit.");
+        GameManager.instance.ScoreAsteroidHit(gameObject);
 
         if (gameObject.transform.localScale.z > 3)
         {

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
 
     private GameObject[] rockPrefabs = new GameObject[11];
+    private int score = 0;
 
     public static readonly Bounds gameBounds =
         new Bounds(Vector3.zero, Vector3.one * 30);
@@ -31,6 +32,12 @@ public class GameManager : MonoBehaviour
                     }
         }
         return false;
+    }
+
+    public void ScoreAsteroidHit(GameObject asteroid)
+    {
+        score += 1;
+        Debug.Log("Score is: " + score);
     }
 
     public GameObject GetRandomRockPrefab()
