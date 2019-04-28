@@ -52,7 +52,7 @@ public class ShipScript : MonoBehaviour
     {
         Instantiate(
             bulletPrefab,
-            transform.position,
+            transform.position + transform.up,
             transform.rotation);
     }
 

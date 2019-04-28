@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    [SerializeField]
-    private float travelVelocity;
-    
-    void FixedUpdate()
+    [SerializeField] private readonly float travelVelocity;
+
+    private void Start()
+    {
+        GetComponent<Rigidbody>().velocity = transform.up * 2;
+        StartCoroutine(die());
+    }
+
+    private void FixedUpdate()
     {
         GetComponent<Rigidbody>().AddForce(transform.up * 10);
     }
 
-    // Update is called once per frame
-    void Update()
+    // Clean up resources for performance.
+    private IEnumerator die()
     {
-        if (transform.position.z > 40)
-        {
-            // Clean up resources for performance.
-            Destroy(gameObject);
-        }
+        yield return new WaitForSeconds(7);
+        Destroy(gameObject);
     }
 }
