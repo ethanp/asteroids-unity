@@ -58,21 +58,12 @@ public class ShipScript : MonoBehaviour
     private void handleArrowKeys()
     {
         if (Input.GetKey("up"))
-        {
-            Debug.Log("Going up.");
             rigidbody_.AddForce(transform.up * upForce, ForceMode.Force);
-        }
         if (Input.GetKey("down"))
-        {
-            rigidbody_.AddForce(-transform.up* upForce, ForceMode.Force);
-        }
+            rigidbody_.AddForce(-transform.up * upForce, ForceMode.Force);
         if (Input.GetKey("left"))
-        {
-            rigidbody_.AddTorque(transform.right * sideForce, ForceMode.Force);
-        }
-        if (Input.GetKey("right"))
-        {
             rigidbody_.AddTorque(-transform.right * sideForce, ForceMode.Force);
-        }
+        if (Input.GetKey("right"))
+            rigidbody_.AddTorque(transform.right * sideForce, ForceMode.Force);
     }
 }
