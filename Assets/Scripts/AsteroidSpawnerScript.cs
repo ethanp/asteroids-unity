@@ -16,7 +16,7 @@ public class AsteroidSpawnerScript : MonoBehaviour
             GameObject newAsteroid = 
                 Instantiate(GameManager.instance.GetRandomRockPrefab());
             newAsteroid.transform.localScale =
-                Vector3.one * Random.Range(0.6f, 6.0f);
+                Vector3.one * Random.Range(2f, 8f);
             positionAsteroid(newAsteroid);
         }
 

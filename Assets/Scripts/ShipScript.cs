@@ -50,9 +50,10 @@ public class ShipScript : MonoBehaviour
 
     private void fire()
     {
-        GameObject newBullet = Instantiate(bulletPrefab);
-        newBullet.transform.position = transform.position;
-        newBullet.transform.rotation = transform.rotation;
+        Instantiate(
+            bulletPrefab,
+            transform.position,
+            transform.rotation);
     }
 
     private void handleArrowKeys()

@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] rockPrefabs = new GameObject[11];
 
+    public static readonly Bounds gameBounds = 
+        new Bounds(Vector3.zero, Vector3.one* 10);
+
     public bool OverlapsExistingObject(GameObject newObject)
     {
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
@@ -32,8 +35,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject GetRandomRockPrefab()
     {
-        // TODO randomize it.
-        return rockPrefabs[0];
+        return rockPrefabs[Random.Range(0, 10)];
     }
 
     private static Bounds bounds(GameObject gameObject)
@@ -50,10 +52,7 @@ public class GameManager : MonoBehaviour
                 Resources.Load(
                     "Prefabs/Rock" + i)
                     as GameObject;
-
-        Debug.Log("Found: " + rockPrefabs[0] == null ? 
-            "Null" : rockPrefabs[0].ToString());
-    }
+   }
 
     // This is recommended here:
     //

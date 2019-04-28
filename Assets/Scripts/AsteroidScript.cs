@@ -6,7 +6,13 @@ public class AsteroidScript : MonoBehaviour
 {
     private void Update()
     {
-        // TODO destroy it if it goes off screen.
+        // TODO Maybe: Wrap (instead of destroy) if it goes off screen?
+        if (GameManager.gameBounds.Intersects(
+            GetComponent<Collider>().bounds))
+        {
+            Debug.Log("Removing asteroid that went offscreen.");
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -19,7 +25,7 @@ public class AsteroidScript : MonoBehaviour
     {
         Debug.Log("Asteroid got hit.");
 
-        if (gameObject.transform.localScale.z > 1)
+        if (gameObject.transform.localScale.z > 3)
         {
             Debug.Log("Creating children asteroids.");
 
@@ -53,6 +59,19 @@ public class AsteroidScript : MonoBehaviour
         Destroy(gameObject);
         Destroy(collision.gameObject);
 
-        // TODO create explosion.
+        createExplosion();
+    }
+
+    private void createExplosion()
+    {
+        // TODO Num rocks in explosion should make sense
+        // for the size of this asteroid.
+        for (int i = 0; i < 0; i++)
+        {
+            GameObject explosionRock = 
+                Instantiate(GameManager.instance.GetRandomRockPrefab());
+            // TODO add force to it in a random direction.
+            // TODO Destroy it after a few seconds.
+        }
     }
 }
