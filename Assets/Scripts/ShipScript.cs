@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class ShipScript : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab;
 
     private float timeGunLastFired = 0f;
-    [SerializeField]
-    private float backoffBetweenFires = .4f;
+    [SerializeField] private float backoffBetweenFires;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +46,8 @@ public class ShipScript : MonoBehaviour
 
     private void fire()
     {
-        Instantiate(bulletPrefab);
+        GameObject newBullet = Instantiate(bulletPrefab) as GameObject;
+        newBullet.transform.position = transform.position;
     }
 
     private void handleArrowKeys()

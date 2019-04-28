@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
+    [SerializeField]
+    private float travelVelocity;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetComponent<Rigidbody>().velocity = new Vector3(0, 0, travelVelocity);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z > 4)
+        if (transform.position.z > 40)
         {
             Destroy(gameObject);
         }
@@ -21,6 +24,6 @@ public class BulletScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 1));
+
     }
 }
