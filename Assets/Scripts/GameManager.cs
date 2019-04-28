@@ -15,8 +15,15 @@ public class GameManager : MonoBehaviour
             if (newObject != existingObject)
                 if (existingObject.activeInHierarchy)
                     if (existingObject.GetComponent<Collider>() != null)
+                    {
+                        Debug.Log("Checking bounds.");
                         if (bounds(newObject).Intersects(bounds(existingObject)))
+                        {
+                            Debug.Log("Matched.");
                             return true;
+                        }
+                        Debug.Log("Didn't match.");
+                    }
         }
         return false;
     }

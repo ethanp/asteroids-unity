@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class ShipScript : MonoBehaviour
 {
+    /*
     [SerializeField] private GameObject bulletPrefab;
 
     private float timeGunLastFired = 0f;
     [SerializeField] private float backoffBetweenFires;
+
+    private Rigidbody rigidbody_;
+
+    void Start()
+    {
+        rigidbody_ = GetComponent<Rigidbody>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -46,23 +54,23 @@ public class ShipScript : MonoBehaviour
 
     private void handleArrowKeys()
     {
-        ///*
         if (Input.GetKeyDown("up"))
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward);
+            Debug.Log("Going up.");
+            rigidbody_.AddForce(transform.forward * 100, ForceMode.Force);
         }
         if (Input.GetKeyDown("down"))
         {
-            GetComponent<Rigidbody>().AddForce(-transform.forward);
+            rigidbody_.AddForce(-transform.forward * 100, ForceMode.Force);
         }
         if (Input.GetKeyDown("left"))
         {
-            GetComponent<Rigidbody>().AddTorque(-transform.right);
+            rigidbody_.AddTorque(-transform.right * 100, ForceMode.Force);
         }
         if (Input.GetKeyDown("right"))
         {
-            GetComponent<Rigidbody>().AddTorque(transform.right);
+            rigidbody_.AddTorque(transform.right * 100, ForceMode.Force);
         }
-        //*/
-    }
+        }
+        */      
 }

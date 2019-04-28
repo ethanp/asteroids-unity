@@ -20,7 +20,8 @@ public class AsteroidSpawnerScript : MonoBehaviour
             {
                 GameObject newAsteroid = Instantiate(asteroidPrefab);
                 positionAsteroid(newAsteroid);
-            } else
+            }
+            else
             {
                 Debug.LogWarning("asteroidPrefab was null.");
             }
@@ -36,10 +37,15 @@ public class AsteroidSpawnerScript : MonoBehaviour
             Destroy(asteroid);
             return;
         }
-        do
+        asteroid.transform.position = createRandomLocation();
+
+        if (GameManager.instance.OverlapsExistingObject(asteroid))
         {
+            Debug.Log("Going to another spot.");
             asteroid.transform.position = createRandomLocation();
-        }  while (GameManager.instance.OverlapsExistingObject(asteroid));
+        }
+
+        Debug.Log("Found a good spot.");
 
     }
 
