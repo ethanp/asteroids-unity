@@ -9,12 +9,6 @@ public class ShipScript : MonoBehaviour
     private float timeGunLastFired = 0f;
     [SerializeField] private float backoffBetweenFires;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
