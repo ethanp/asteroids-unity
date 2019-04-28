@@ -48,7 +48,7 @@ public class AsteroidScript : MonoBehaviour
             leftChild.transform.localScale = smallerScale;
             rightChild.transform.localScale = smallerScale;
 
-            // TODO set velocity.
+            // TODO set velocity (or rotation).
         }
         Destroy(gameObject);
         Destroy(collision.gameObject);
