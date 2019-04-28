@@ -9,6 +9,9 @@ public class ShipScript : MonoBehaviour
     private float timeGunLastFired = 0f;
     [SerializeField] private float backoffBetweenFires;
 
+    [SerializeField] private float upForce;
+    [SerializeField] private float sideForce;
+
     private Rigidbody rigidbody_;
 
     void Start()
@@ -33,7 +36,7 @@ public class ShipScript : MonoBehaviour
     private bool shouldFire()
     {
 
-        if (Input.GetKeyDown("space")
+        if (Input.GetKey("space")
             && Time.time - timeGunLastFired > backoffBetweenFires)
         {
             timeGunLastFired = Time.time;
@@ -49,26 +52,27 @@ public class ShipScript : MonoBehaviour
     {
         GameObject newBullet = Instantiate(bulletPrefab);
         newBullet.transform.position = transform.position;
+        newBullet.transform.rotation = transform.rotation;
     }
 
     private void handleArrowKeys()
     {
-        if (Input.GetKeyDown("up"))
+        if (Input.GetKey("up"))
         {
             Debug.Log("Going up.");
-            rigidbody_.AddForce(transform.up * 100, ForceMode.Force);
+            rigidbody_.AddForce(transform.up * upForce, ForceMode.Force);
         }
-        if (Input.GetKeyDown("down"))
+        if (Input.GetKey("down"))
         {
-            rigidbody_.AddForce(-transform.up* 100, ForceMode.Force);
+            rigidbody_.AddForce(-transform.up* upForce, ForceMode.Force);
         }
-        if (Input.GetKeyDown("left"))
+        if (Input.GetKey("left"))
         {
-            rigidbody_.AddTorque(-transform.right * 10, ForceMode.Force);
+            rigidbody_.AddTorque(transform.right * sideForce, ForceMode.Force);
         }
-        if (Input.GetKeyDown("right"))
+        if (Input.GetKey("right"))
         {
-            rigidbody_.AddTorque(transform.right * 10, ForceMode.Force);
+            rigidbody_.AddTorque(-transform.right * sideForce, ForceMode.Force);
         }
     }
 }
