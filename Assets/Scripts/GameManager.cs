@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] rockPrefabs = new GameObject[11];
     private int score = 0;
+    [SerializeField] private TMPro.TextMeshProUGUI scoreText;
 
     public static readonly Bounds gameBounds =
         new Bounds(Vector3.zero, Vector3.one * 30);
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
     public void ScoreAsteroidHit(GameObject asteroid)
     {
         score += 1;
-        Debug.Log("Score is: " + score);
+        scoreText.text = "Score: " + score;
     }
 
     public GameObject GetRandomRockPrefab()
