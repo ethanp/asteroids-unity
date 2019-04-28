@@ -36,5 +36,6 @@ public class AsteroidScript : MonoBehaviour
             // TODO set velocity.
         }
         Destroy(gameObject);
+        Destroy(collision.gameObject);
     }
 }

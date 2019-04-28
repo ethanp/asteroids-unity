@@ -52,9 +52,9 @@ public class AsteroidSpawnerScript : MonoBehaviour
     private Vector3 createRandomLocation()
     {
         return new Vector3(
-            Random.Range(0, 10),
-            0,
-            Random.Range(0, 10));
+            Random.Range(-5, 5),
+            Random.Range(-5, 5),
+            0);
     }
 
 
