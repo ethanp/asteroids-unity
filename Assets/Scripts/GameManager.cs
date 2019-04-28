@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
 
     private GameObject[] rockPrefabs = new GameObject[11];
+
     private int score = 0;
+
     [SerializeField] private TMPro.TextMeshProUGUI scoreText;
+    [SerializeField] private TMPro.TextMeshProUGUI livesRemainingText;
 
     public static readonly Bounds gameBounds =
         new Bounds(Vector3.zero, Vector3.one * 30);
