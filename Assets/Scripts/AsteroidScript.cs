@@ -7,7 +7,7 @@ public class AsteroidScript : MonoBehaviour
     private void Update()
     {
         // TODO Maybe: Wrap (instead of destroy) if it goes off screen?
-        if (GameManager.gameBounds.Intersects(
+        if (!GameManager.gameBounds.Intersects(
             GetComponent<Collider>().bounds))
         {
             Debug.Log("Removing asteroid that went offscreen.");
@@ -30,9 +30,9 @@ public class AsteroidScript : MonoBehaviour
             Debug.Log("Creating children asteroids.");
 
             // Create children.
-            GameObject leftChild = 
+            GameObject leftChild =
                 Instantiate(GameManager.instance.GetRandomRockPrefab());
-            GameObject rightChild = 
+            GameObject rightChild =
                 Instantiate(GameManager.instance.GetRandomRockPrefab());
 
             // Set parent.
@@ -56,22 +56,38 @@ public class AsteroidScript : MonoBehaviour
 
             // TODO set velocity (or rotation, just match asteroid movement).
         }
-        Destroy(gameObject);
         Destroy(collision.gameObject);
+        Destroy(gameObject);
 
-        createExplosion();
+        StartCoroutine(createExplosion());
     }
 
-    private void createExplosion()
+    private IEnumerator createExplosion()
     {
-        // TODO Num rocks in explosion should make sense
+        int COUNT = 10;
+        GameObject[] children = new GameObject[COUNT];
+
+        // TODO Rock count & size in explosion should make sense
         // for the size of this asteroid.
-        for (int i = 0; i < 0; i++)
-        {
-            GameObject explosionRock = 
-                Instantiate(GameManager.instance.GetRandomRockPrefab());
-            // TODO add force to it in a random direction.
-            // TODO Destroy it after a few seconds.
-        }
+        for (int i = 0; i < COUNT; i++)
+            children[i] = createExplosionRock();
+
+        yield return new WaitForSeconds(2);
+
+        for (int i = 0; i < COUNT; i++)
+            Destroy(children[i]);
+    }
+
+    private GameObject createExplosionRock()
+    {
+        Vector3 loc = Random.onUnitSphere;
+        GameObject explosionRock =
+                Instantiate(
+                    GameManager.instance.GetRandomRockPrefab(),
+                    gameObject.transform.position + loc,
+                    gameObject.transform.rotation);
+        explosionRock.GetComponent<Rigidbody>()
+            .AddForce(loc * 1000);
+        return explosionRock;
     }
 }

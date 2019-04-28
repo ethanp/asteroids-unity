@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] rockPrefabs = new GameObject[11];
 
-    public static readonly Bounds gameBounds = 
-        new Bounds(Vector3.zero, Vector3.one* 10);
+    public static readonly Bounds gameBounds =
+        new Bounds(Vector3.zero, Vector3.one * 30);
 
     public bool OverlapsExistingObject(GameObject newObject)
     {
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
         return rockPrefabs[Random.Range(0, 10)];
     }
 
+
     private static Bounds bounds(GameObject gameObject)
     {
         return gameObject.GetComponent<Collider>().bounds;
@@ -45,14 +46,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Loading rock prefabs.");
         // Load rock prefabs.
         for (int i = 1; i <= 11; i++)
             rockPrefabs[i - 1] =
                 Resources.Load(
                     "Prefabs/Rock" + i)
                     as GameObject;
-   }
+    }
 
     // This is recommended here:
     //

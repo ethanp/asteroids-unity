@@ -5,7 +5,13 @@ using UnityEngine;
 public class AsteroidSpawnerScript : MonoBehaviour
 {
     [SerializeField] private float timeToSpawn;
-    private float lastSpawned = 0;
+    private float lastSpawned;
+
+    private void Start()
+    {
+        // Create one asteroid immediately on game start.
+        lastSpawned = -timeToSpawn;
+    }
 
     // Update is called once per frame
     void Update()
@@ -24,12 +30,6 @@ public class AsteroidSpawnerScript : MonoBehaviour
 
     private void positionAsteroid(GameObject asteroid)
     {
-        if (GameManager.instance == null)
-        {
-            Debug.LogWarning("Found null instance.");
-            Destroy(asteroid);
-            return;
-        }
         asteroid.transform.position = createRandomLocation();
 
         // TODO This should be a `while`-loop, but it was infinite-looping.
@@ -40,7 +40,6 @@ public class AsteroidSpawnerScript : MonoBehaviour
         }
 
         Debug.Log("Found a good spot.");
-
     }
 
     private Vector3 createRandomLocation()
