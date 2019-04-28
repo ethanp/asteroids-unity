@@ -227,6 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52eaa2dba71940dbabf083943530ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
+  backoffBetweenFires: 0
 --- !u!82 &100998691
 AudioSource:
   m_ObjectHideFlags: 0
@@ -333,8 +335,8 @@ Rigidbody:
   m_GameObject: {fileID: 100998685}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.4
+  m_AngularDrag: 0.4
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -425,7 +427,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -0.5, y: 3.9, z: 0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -507,13 +509,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.53342867, y: 0.41059119, z: 0.023288058, w: 0.739139}
-  m_LocalPosition: {x: -6.49, y: 13.25, z: -5.74}
+  m_LocalRotation: {x: 0.48905423, y: 0.49766177, z: 0.52236855, w: 0.49019372}
+  m_LocalPosition: {x: -26, y: 2, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50.303, y: 81.561005, z: 47.706}
+  m_LocalEulerAnglesHint: {x: 182.319, y: -91.509, z: -88.61899}
 --- !u!1 &1177185448
 GameObject:
   m_ObjectHideFlags: 0
