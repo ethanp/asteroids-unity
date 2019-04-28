@@ -32,6 +32,13 @@ public class AsteroidScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ship"))
+        {
+            GameManager.instance.ShipDied(collision.gameObject);
+            GameManager.instance.FindPosition(collision.gameObject);
+            return;
+        }
+
         GameManager.instance.ScoreAsteroidHit();
 
         if (gameObject.transform.localScale.z > 3)

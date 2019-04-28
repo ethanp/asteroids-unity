@@ -22,6 +22,7 @@ public class ShipScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        constrainTo2D();
         if (shouldFire())
         {
             fire();
@@ -63,8 +64,20 @@ public class ShipScript : MonoBehaviour
         if (Input.GetKey("down"))
             rigidbody_.AddForce(-transform.up * upForce, ForceMode.Force);
         if (Input.GetKey("left"))
-            rigidbody_.AddTorque(-transform.right * sideForce, ForceMode.Force);
+            rigidbody_.AddTorque(transform.forward * sideForce, ForceMode.Force);
         if (Input.GetKey("right"))
-            rigidbody_.AddTorque(transform.right * sideForce, ForceMode.Force);
+            rigidbody_.AddTorque(-transform.forward * sideForce, ForceMode.Force);
+    }
+
+    private void constrainTo2D()
+    {
+        transform.rotation =
+            Quaternion.Euler(
+                0, 0, transform.rotation.eulerAngles.z);
+        transform.position =
+            new Vector3(
+                transform.position.x,
+                transform.position.y,
+                0);
     }
 }

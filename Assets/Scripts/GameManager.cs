@@ -9,39 +9,46 @@ public class GameManager : MonoBehaviour
     private readonly GameObject[] rockPrefabs = new GameObject[11];
 
     private int score = 0;
+    private int livesRemaining = 3;
 
     [SerializeField] private TMPro.TextMeshProUGUI scoreText;
     [SerializeField] private TMPro.TextMeshProUGUI livesRemainingText;
+    [SerializeField] private TMPro.TextMeshProUGUI youLostText;
+
 
     public static readonly Bounds gameBounds =
         new Bounds(Vector3.zero, Vector3.one * 30);
 
-    public bool OverlapsExistingObject(GameObject newObject)
+    public void FindPosition(GameObject gameObject)
     {
-        GameObject[] allObjects = FindObjectsOfType<GameObject>();
-        foreach (GameObject existingObject in allObjects)
+        gameObject.transform.position = createRandomLocation();
+
+        // TODO This should be a `while`-loop, but it was infinite-looping.
+        if (GameManager.instance.OverlapsExistingObject(gameObject))
         {
-            Debug.Log("Checking collision with " + existingObject);
-            if (newObject != existingObject)
-                if (existingObject.activeInHierarchy)
-                    if (existingObject.GetComponent<Collider>() != null)
-                    {
-                        Debug.Log("Checking bounds.");
-                        if (bounds(newObject).Intersects(bounds(existingObject)))
-                        {
-                            Debug.Log("Matched.");
-                            return true;
-                        }
-                        Debug.Log("Didn't match.");
-                    }
+            Debug.Log("Going to another spot.");
+            gameObject.transform.position = createRandomLocation();
         }
-        return false;
+
+        Debug.Log("Found a good spot.");
+    }
+
+    public void ShipDied(GameObject ship)
+    {
+        livesRemainingText.text = "Lives Remaining: " + --livesRemaining;
+        if (livesRemaining == 0)
+        {
+            youLostText.alpha = 255;
+            Destroy(ship);
+        } else
+        {
+            FindPosition(ship);
+        }
     }
 
     public void ScoreAsteroidHit()
     {
-        score += 1;
-        scoreText.text = "Score: " + score;
+        scoreText.text = "Score: " + ++score;
     }
 
     public GameObject GetRandomRockPrefab()
@@ -78,5 +85,35 @@ public class GameManager : MonoBehaviour
 
         // Persist between scenes.
         DontDestroyOnLoad(gameObject);
+    }
+
+    private bool OverlapsExistingObject(GameObject newObject)
+    {
+        GameObject[] allObjects = FindObjectsOfType<GameObject>();
+        foreach (GameObject existingObject in allObjects)
+        {
+            Debug.Log("Checking collision with " + existingObject);
+            if (newObject != existingObject)
+                if (existingObject.activeInHierarchy)
+                    if (existingObject.GetComponent<Collider>() != null)
+                    {
+                        Debug.Log("Checking bounds.");
+                        if (bounds(newObject).Intersects(bounds(existingObject)))
+                        {
+                            Debug.Log("It does intersect.");
+                            return true;
+                        }
+                        Debug.Log("It does NOT intersect.");
+                    }
+        }
+        return false;
+    }
+
+    private Vector3 createRandomLocation()
+    {
+        return new Vector3(
+            Random.Range(-10, 10),
+            Random.Range(-10, 10),
+            0);
     }
 }
