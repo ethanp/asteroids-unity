@@ -107,6 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c96d688d1ca41869bb653acb631161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explodedAsteroidMaterial: {fileID: 2100000, guid: 1e5579bae5f3f4bd4a37585751eeb2a7,
+    type: 2}
 --- !u!54 &5144105990363885394
 Rigidbody:
   m_ObjectHideFlags: 0

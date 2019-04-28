@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
-    private GameObject[] rockPrefabs = new GameObject[11];
+    private readonly GameObject[] rockPrefabs = new GameObject[11];
 
     private int score = 0;
 
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void ScoreAsteroidHit(GameObject asteroid)
+    public void ScoreAsteroidHit()
     {
         score += 1;
         scoreText.text = "Score: " + score;

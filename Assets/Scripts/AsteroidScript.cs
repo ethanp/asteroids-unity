@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
 {
+    private Vector3 direction;
+
+    [SerializeField] private Material explodedAsteroidMaterial;
+
+    private void Start()
+    {
+        Vector3 notYet = Random.onUnitSphere;
+        direction = new Vector3(notYet.x, notYet.y, 0);
+    }
+
     private void Update()
     {
-        // TODO Maybe: Wrap (instead of destroy) if it goes off screen?
-        if (!GameManager.gameBounds.Intersects(
-            GetComponent<Collider>().bounds))
+        if (!GameManager.gameBounds
+                .Contains(
+                    gameObject.transform.position))
         {
             Debug.Log("Removing asteroid that went offscreen.");
             Destroy(gameObject);
@@ -17,44 +27,28 @@ public class AsteroidScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // TODO add some force to it to make it move
-        // around. Make the speed go up AND down over time.
+        GetComponent<Rigidbody>().AddForce(direction);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameManager.instance.ScoreAsteroidHit(gameObject);
+        GameManager.instance.ScoreAsteroidHit();
 
         if (gameObject.transform.localScale.z > 3)
         {
-            Debug.Log("Creating children asteroids.");
+            GameObject child =
+                Instantiate(
+                    gameObject,
+                    transform.position, 
+                    transform.rotation, 
+                    transform.parent);
 
-            // Create children.
-            GameObject leftChild =
-                Instantiate(GameManager.instance.GetRandomRockPrefab());
-            GameObject rightChild =
-                Instantiate(GameManager.instance.GetRandomRockPrefab());
+            child.transform.localScale = transform.localScale * .7f;
 
-            // Set parent.
-            leftChild.transform.parent = transform.parent;
-            rightChild.transform.parent = transform.parent;
-
-            // Set position.
-            leftChild.transform.position = new Vector3(
-                transform.position.x - 1,
-                transform.position.y,
-                transform.position.z);
-            rightChild.transform.position = new Vector3(
-                transform.position.x + 1,
-                transform.position.y,
-                transform.position.z);
-
-            // Set scale.
-            Vector3 smallerScale = transform.localScale * .7f;
-            leftChild.transform.localScale = smallerScale;
-            rightChild.transform.localScale = smallerScale;
-
-            // TODO set velocity (or rotation, just match asteroid movement).
+            child
+                .GetComponent<Rigidbody>()
+                .AddForce(
+                    collision.relativeVelocity * 5);
         }
         Destroy(collision.gameObject);
         Destroy(gameObject);
@@ -86,6 +80,10 @@ public class AsteroidScript : MonoBehaviour
                     GameManager.instance.GetRandomRockPrefab(),
                     gameObject.transform.position + loc,
                     gameObject.transform.rotation);
+
+        explosionRock.GetComponent<Renderer>().material = 
+            explodedAsteroidMaterial;
+            
         explosionRock.GetComponent<Rigidbody>()
             .AddForce(loc * 1000);
         return explosionRock;
