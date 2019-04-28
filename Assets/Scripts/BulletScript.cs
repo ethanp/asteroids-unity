@@ -18,6 +18,7 @@ public class BulletScript : MonoBehaviour
     {
         if (transform.position.z > 40)
         {
+            // Clean up resources for performance.
             Destroy(gameObject);
         }
     }

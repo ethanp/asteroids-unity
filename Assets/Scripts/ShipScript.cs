@@ -46,7 +46,7 @@ public class ShipScript : MonoBehaviour
 
     private void fire()
     {
-        GameObject newBullet = Instantiate(bulletPrefab) as GameObject;
+        GameObject newBullet = Instantiate(bulletPrefab);
         newBullet.transform.position = transform.position;
     }
 
