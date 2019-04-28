@@ -4,28 +4,40 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance = null;
 
     public bool OverlapsExistingObject(GameObject newObject)
     {
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
         foreach (GameObject existingObject in allObjects)
-            if (existingObject.activeInHierarchy)
-                if (bounds(newObject).Intersects(bounds(existingObject)))
-                    return true;
+        {
+            Debug.Log("Checking collision with " + existingObject);
+            if (newObject != existingObject)
+                if (existingObject.activeInHierarchy)
+                    if (existingObject.GetComponent<Collider>() != null)
+                        if (bounds(newObject).Intersects(bounds(existingObject)))
+                            return true;
+        }
         return false;
     }
 
-    private Bounds bounds(GameObject gameObject)
+    private static Bounds bounds(GameObject gameObject)
     {
         return gameObject.GetComponent<Collider>().bounds;
     }
 
-    // SINGLETON.
-    private static GameManager instance = null;
-    public static GameManager Instance()
+    // This is recommended here:
+    //
+    // https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial/writing-game-manager
+    //
+    void Awake()
     {
         if (instance == null)
-            instance = new GameManager();
-        return instance;
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+
+        // Persist between scenes.
+        DontDestroyOnLoad(gameObject);
     }
 }

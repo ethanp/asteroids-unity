@@ -15,16 +15,31 @@ public class AsteroidSpawnerScript : MonoBehaviour
     {
         if (Time.time - lastSpawned > timeToSpawn)
         {
-            GameObject newAsteroid = Instantiate(asteroidPrefab);
-            positionAsteroid(newAsteroid);
+            lastSpawned = Time.time;
+            if (asteroidPrefab != null)
+            {
+                GameObject newAsteroid = Instantiate(asteroidPrefab);
+                positionAsteroid(newAsteroid);
+            } else
+            {
+                Debug.LogWarning("asteroidPrefab was null.");
+            }
         }
 
     }
 
     private void positionAsteroid(GameObject asteroid)
     {
-        do asteroid.transform.position = createRandomLocation();
-        while (GameManager.Instance().OverlapsExistingObject(asteroid));
+        if (GameManager.instance == null)
+        {
+            Debug.LogWarning("Found null instance.");
+            Destroy(asteroid);
+            return;
+        }
+        do
+        {
+            asteroid.transform.position = createRandomLocation();
+        }  while (GameManager.instance.OverlapsExistingObject(asteroid));
 
     }
 

@@ -46,22 +46,23 @@ public class ShipScript : MonoBehaviour
 
     private void handleArrowKeys()
     {
+        ///*
         if (Input.GetKeyDown("up"))
         {
-            // TODO add `forward` force.
+            GetComponent<Rigidbody>().AddForce(transform.forward);
         }
         if (Input.GetKeyDown("down"))
         {
-
+            GetComponent<Rigidbody>().AddForce(-transform.forward);
         }
         if (Input.GetKeyDown("left"))
         {
-
+            GetComponent<Rigidbody>().AddTorque(-transform.right);
         }
         if (Input.GetKeyDown("right"))
         {
-
+            GetComponent<Rigidbody>().AddTorque(transform.right);
         }
-
+        //*/
     }
 }
