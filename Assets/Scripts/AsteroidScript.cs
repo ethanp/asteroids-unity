@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
 {
-    /*
     [SerializeField] private GameObject asteroidPrefab;
 
     private void OnCollisionEnter(Collision collision)
@@ -38,5 +37,4 @@ public class AsteroidScript : MonoBehaviour
         }
         Destroy(gameObject);
     }
-    */
 }

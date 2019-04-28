@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShipScript : MonoBehaviour
 {
-    /*
     [SerializeField] private GameObject bulletPrefab;
 
     private float timeGunLastFired = 0f;
@@ -71,6 +70,5 @@ public class ShipScript : MonoBehaviour
         {
             rigidbody_.AddTorque(transform.right * 100, ForceMode.Force);
         }
-        }
-        */      
+    }
 }
