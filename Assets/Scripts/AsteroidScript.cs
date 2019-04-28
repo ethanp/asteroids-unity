@@ -35,7 +35,6 @@ public class AsteroidScript : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ship"))
         {
             GameManager.instance.ShipDied(collision.gameObject);
-            GameManager.instance.FindPosition(collision.gameObject);
             return;
         }
 
