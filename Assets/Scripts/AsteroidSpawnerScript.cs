@@ -24,7 +24,7 @@ public class AsteroidSpawnerScript : MonoBehaviour
     private void positionAsteroid(GameObject asteroid)
     {
         do asteroid.transform.position = createRandomLocation();
-        while (overlapsExistingObject(asteroid));
+        while (GameManager.Instance().OverlapsExistingObject(asteroid));
 
     }
 
@@ -36,18 +36,5 @@ public class AsteroidSpawnerScript : MonoBehaviour
             Random.Range(0, 10));
     }
 
-    private bool overlapsExistingObject(GameObject asteroid)
-    {
-        foreach (Bounds existingBounds in GameManagerScript.Instance().GetExistingColliderBounds())
-        {
-            if (asteroid
-                .GetComponent<Collider>()
-                .bounds
-                .Intersects(existingBounds))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+
 }
