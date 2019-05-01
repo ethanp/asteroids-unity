@@ -109,6 +109,14 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    public GameObject GetShip()
+    {
+        foreach (GameObject gObj in FindObjectsOfType<GameObject>())
+            if (gObj.GetComponent<ShipScript>() != null)
+                return gObj;
+        throw new UnityException("Couldn't find the ship.");
+    }
+
     private Vector3 createRandomLocation()
     {
         return new Vector3(

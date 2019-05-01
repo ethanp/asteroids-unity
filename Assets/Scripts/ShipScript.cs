@@ -23,10 +23,8 @@ public class ShipScript : MonoBehaviour
     void Update()
     {
         constrainTo2D();
-        if (shouldFire())
-        {
+        if (shouldFire()) 
             fire();
-        }
     }
 
     private void FixedUpdate()
@@ -59,25 +57,31 @@ public class ShipScript : MonoBehaviour
 
     private void handleArrowKeys()
     {
-        if (Input.GetKey("up"))
-            rigidbody_.AddForce(transform.up * upForce, ForceMode.Force);
-        if (Input.GetKey("down"))
-            rigidbody_.AddForce(-transform.up * upForce, ForceMode.Force);
-        if (Input.GetKey("left"))
-            rigidbody_.AddTorque(transform.forward * sideForce, ForceMode.Force);
-        if (Input.GetKey("right"))
-            rigidbody_.AddTorque(-transform.forward * sideForce, ForceMode.Force);
+        if (Input.GetKey("up")) addForce(transform.up * upForce);
+        if (Input.GetKey("down")) addForce(-transform.up * upForce);
+        if (Input.GetKey("left")) addTorque(transform.forward * sideForce);
+        if (Input.GetKey("right")) addTorque(-transform.forward * sideForce);
+    }
+
+    private void addForce(Vector3 f)
+    {
+        rigidbody_.AddForce(f, ForceMode.Force);
+    }
+
+    private void addTorque(Vector3 f)
+    {
+        rigidbody_.AddTorque(f, ForceMode.Force);
     }
 
     private void constrainTo2D()
     {
-        transform.rotation =
-            Quaternion.Euler(
-                0, 0, transform.rotation.eulerAngles.z);
         transform.position =
             new Vector3(
                 transform.position.x,
                 transform.position.y,
                 0);
+
+        transform.rotation =
+            Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
     }
 }
