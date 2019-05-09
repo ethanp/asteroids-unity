@@ -11,6 +11,8 @@ public class AudioManagerScript : MonoBehaviour
     [SerializeField] private AudioSource userWonClip;
     [SerializeField] private AudioSource backgroundMusicClip;
 
+    // TODO Actually I want the AudioSource to be on the Ship so that the
+    //      directionality is right.
     public void PlayBulletFired() { bulletFiredClip.Play(); }
 
     public void PlayShipExplosion() { shipExplosionClip.Play(); }

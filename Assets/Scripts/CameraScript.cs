@@ -28,14 +28,15 @@ public class CameraScript : MonoBehaviour
     private Color createBackgroundColor()
     {
         return new Color(
-            r: Mathf.Abs(Mathf.Sin(Time.time)),
-            g: Mathf.Abs(Mathf.Cos(Time.time)),
+            r: Mathf.Abs(Mathf.Sin(Time.time/20)),
+            g: Mathf.Abs(Mathf.Cos(Time.time/20)),
             b: .2f,
             a: .8f);
     }
 
     private Vector3 followShip()
     {
+        // TODO change these. But also enable this function.
         Vector3 behind = ship_.transform.up * -40;
         Vector3 above = Vector3.zero;  // ship_.transform.forward * -5;
         return Vector3.Lerp(

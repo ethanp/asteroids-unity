@@ -23,7 +23,7 @@ public class ShipScript : MonoBehaviour
     void Update()
     {
         constrainTo2D();
-        if (shouldFire()) 
+        if (shouldFire())
             fire();
     }
 
@@ -51,16 +51,16 @@ public class ShipScript : MonoBehaviour
     {
         Instantiate(
             original: bulletPrefab,
-            position: transform.position + transform.up,
+            position: transform.position + transform.forward,
             rotation: transform.rotation);
     }
 
     private void handleArrowKeys()
     {
-        if (Input.GetKey("up")) addForce(transform.up * upForce);
-        if (Input.GetKey("down")) addForce(-transform.up * upForce);
-        if (Input.GetKey("left")) addTorque(transform.forward * sideForce);
-        if (Input.GetKey("right")) addTorque(-transform.forward * sideForce);
+        if (Input.GetKey("up")) addForce(transform.forward * upForce);
+        if (Input.GetKey("down")) addForce(-transform.forward * upForce);
+        if (Input.GetKey("left")) addTorque(-transform.up * sideForce);
+        if (Input.GetKey("right")) addTorque(transform.up * sideForce);
     }
 
     private void addForce(Vector3 f)
@@ -79,16 +79,20 @@ public class ShipScript : MonoBehaviour
 
     private void constrainTo2D()
     {
+        // TODO `z` is the wrong axis. But I should find the right axis.
+        /*
         transform.position =
             new Vector3(
                 x: transform.position.x,
                 y: transform.position.y,
                 z: 0);
+                       
 
         transform.rotation =
             Quaternion.Euler(
                 x: 0,
                 y: 0,
                 z: transform.rotation.eulerAngles.z);
+        */
     }
 }
