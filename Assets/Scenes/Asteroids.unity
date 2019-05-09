@@ -365,13 +365,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100998685}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &100998690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,8 +387,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 901949882867105422, guid: a1f2e6fe5dbfd4324a6b325887becbe3,
     type: 3}
   backoffBetweenFires: 0.4
-  upForce: 5
-  sideForce: 5
+  upForce: 15
+  sideForce: 1
 --- !u!82 &100998691
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1018,13 +1018,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.24197274, y: -0, z: -0, w: 0.9702831}
-  m_LocalPosition: {x: 0.8, y: 4.07, z: -12.63}
+  m_LocalRotation: {x: -0.6182606, y: -0, z: -0, w: 0.7859732}
+  m_LocalPosition: {x: 0.8, y: -31.18, z: -12.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 28.006, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -76.378006, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0

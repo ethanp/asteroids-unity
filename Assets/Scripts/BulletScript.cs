@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    [SerializeField] private readonly float travelVelocity;
+    [SerializeField] private float travelVelocity;
 
     private void Start()
     {
