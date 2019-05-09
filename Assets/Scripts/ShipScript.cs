@@ -50,9 +50,9 @@ public class ShipScript : MonoBehaviour
     private void fire()
     {
         Instantiate(
-            bulletPrefab,
-            transform.position + transform.up,
-            transform.rotation);
+            original: bulletPrefab,
+            position: transform.position + transform.up,
+            rotation: transform.rotation);
     }
 
     private void handleArrowKeys()
@@ -65,23 +65,30 @@ public class ShipScript : MonoBehaviour
 
     private void addForce(Vector3 f)
     {
-        rigidbody_.AddForce(f, ForceMode.Force);
+        rigidbody_.AddForce(
+            force: f,
+            mode: ForceMode.Force);
     }
 
-    private void addTorque(Vector3 f)
+    private void addTorque(Vector3 t)
     {
-        rigidbody_.AddTorque(f, ForceMode.Force);
+        rigidbody_.AddTorque(
+            torque: t,
+            mode: ForceMode.Force);
     }
 
     private void constrainTo2D()
     {
         transform.position =
             new Vector3(
-                transform.position.x,
-                transform.position.y,
-                0);
+                x: transform.position.x,
+                y: transform.position.y,
+                z: 0);
 
         transform.rotation =
-            Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
+            Quaternion.Euler(
+                x: 0,
+                y: 0,
+                z: transform.rotation.eulerAngles.z);
     }
 }
