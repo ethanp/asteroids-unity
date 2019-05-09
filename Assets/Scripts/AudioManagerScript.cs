@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class AudioManagerScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private AudioSource bulletFiredClip;
+    [SerializeField] private AudioSource shipExplosionClip;
+    [SerializeField] private AudioSource asteroidExplosionClip;
+    [SerializeField] private AudioSource userLostClip;
+    [SerializeField] private AudioSource userWonClip;
+    [SerializeField] private AudioSource backgroundMusicClip;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void PlayBulletFired() { bulletFiredClip.Play(); }
+
+    public void PlayShipExplosion() { shipExplosionClip.Play(); }
+
+    public void PlayAsteroidExplosion() { asteroidExplosionClip.Play(); }
+
+    public void PlayUserLost() { userLostClip.Play(); }
+
+    public void PlayUserWon() { userWonClip.Play(); }
+
+    public void PlayBackgroundMusic() { backgroundMusicClip.Play(); }
 }
