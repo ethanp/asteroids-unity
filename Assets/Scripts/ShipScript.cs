@@ -9,7 +9,7 @@ public class ShipScript : MonoBehaviour
     private float timeGunLastFired = 0f;
     [SerializeField] private float backoffBetweenFires;
 
-    [SerializeField] private float upForce;
+    [SerializeField] private float forwardForce;
     [SerializeField] private float sideForce;
 
     private Rigidbody rigidbody_;
@@ -57,8 +57,8 @@ public class ShipScript : MonoBehaviour
 
     private void handleArrowKeys()
     {
-        if (Input.GetKey("up")) addForce(transform.forward * upForce);
-        if (Input.GetKey("down")) addForce(-transform.forward * upForce);
+        if (Input.GetKey("up")) addForce(transform.forward * forwardForce);
+        if (Input.GetKey("down")) addForce(-transform.forward * forwardForce);
         if (Input.GetKey("left")) addTorque(-transform.up * sideForce);
         if (Input.GetKey("right")) addTorque(transform.up * sideForce);
     }

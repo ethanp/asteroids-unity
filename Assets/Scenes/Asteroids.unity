@@ -387,8 +387,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 901949882867105422, guid: a1f2e6fe5dbfd4324a6b325887becbe3,
     type: 3}
   backoffBetweenFires: 0.4
-  upForce: 15
-  sideForce: 1
+  forwardForce: 20
+  sideForce: 0.3
 --- !u!82 &100998691
 AudioSource:
   m_ObjectHideFlags: 0
