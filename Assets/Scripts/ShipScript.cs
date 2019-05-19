@@ -22,7 +22,6 @@ public class ShipScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        constrainTo2D();
         if (shouldFire())
             fire();
     }
@@ -34,17 +33,14 @@ public class ShipScript : MonoBehaviour
 
     private bool shouldFire()
     {
+        bool firing =
+            Input.GetKey("space")
+                && Time.time - timeGunLastFired > backoffBetweenFires;
 
-        if (Input.GetKey("space")
-            && Time.time - timeGunLastFired > backoffBetweenFires)
-        {
+        if (firing)
             timeGunLastFired = Time.time;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+
+        return firing;
     }
 
     private void fire()
@@ -52,7 +48,12 @@ public class ShipScript : MonoBehaviour
         Instantiate(
             original: bulletPrefab,
             position: transform.position + transform.forward,
-            rotation: transform.rotation);
+            rotation: transform.rotation)
+                .transform
+                    .Rotate(
+                        xAngle: 90,
+                        yAngle: 0,
+                        zAngle: 0);
     }
 
     private void handleArrowKeys()
@@ -61,6 +62,8 @@ public class ShipScript : MonoBehaviour
         if (Input.GetKey("down")) addForce(-transform.forward * forwardForce);
         if (Input.GetKey("left")) addTorque(-transform.up * sideForce);
         if (Input.GetKey("right")) addTorque(transform.up * sideForce);
+        if (Input.GetKey("w")) addTorque(-transform.right * sideForce);
+        if (Input.GetKey("s")) addTorque(transform.right * sideForce);
     }
 
     private void addForce(Vector3 f)
@@ -75,24 +78,5 @@ public class ShipScript : MonoBehaviour
         rigidbody_.AddTorque(
             torque: t,
             mode: ForceMode.Force);
-    }
-
-    private void constrainTo2D()
-    {
-        // TODO `z` is the wrong axis. But I should find the right axis.
-        /*
-        transform.position =
-            new Vector3(
-                x: transform.position.x,
-                y: transform.position.y,
-                z: 0);
-                       
-
-        transform.rotation =
-            Quaternion.Euler(
-                x: 0,
-                y: 0,
-                z: transform.rotation.eulerAngles.z);
-        */
     }
 }

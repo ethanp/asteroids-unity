@@ -6,6 +6,10 @@ public class CameraScript : MonoBehaviour
 {
     private GameObject ship_;
 
+    [SerializeField] private float backwardsness;
+    [SerializeField] private float upwardsness;
+    [SerializeField] private float downAngle;
+
     void Start()
     {
         ship_ = GameManager.instance.GetShip();
@@ -33,14 +37,14 @@ public class CameraScript : MonoBehaviour
         // TODO Should be a lerp.
         transform.position =
             ship_.transform.position
-                - ship_.transform.forward * 30
-                + ship_.transform.up * 20;
+                - ship_.transform.forward * backwardsness
+                + ship_.transform.up * upwardsness;
     }
 
     private void lookAtShip()
     {
         // TODO Should be a slerp.
         transform.LookAt(ship_.transform, ship_.transform.up);
-        transform.Rotate(5, 0, 0);
+        transform.Rotate(downAngle, 0, 0);
     }
 }

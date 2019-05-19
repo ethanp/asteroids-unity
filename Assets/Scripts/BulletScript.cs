@@ -8,13 +8,13 @@ public class BulletScript : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Rigidbody>().velocity = transform.forward * 2;
+        GetComponent<Rigidbody>().velocity = transform.up * 2;
         StartCoroutine(die());
     }
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * 10);
+        GetComponent<Rigidbody>().AddForce(transform.up * 10);
     }
 
     // Clean up resources for performance.
