@@ -1,39 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MusicSizeCubeScript : MonoBehaviour
 {
 
     [SerializeField] private int myBandLo;
-    [SerializeField] private int myBandHi;
+    [SerializeField] private int numBands;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private const int MINIMUM_QUALITY = 64;
+    private readonly float[] spectrumSamples = new float[MINIMUM_QUALITY];
 
-    // Update is called once per frame
     void Update()
     {
-        float[] spectrum = new float[64]; // fastest/minimum quality.
-
         AudioListener // Read from global master mix.
             .GetSpectrumData(
-                samples: spectrum,
+                samples: spectrumSamples,
                 channel: 0, // left + right channels.
                 window: FFTWindow.Hamming); // medium quality.
 
-        float sum = 0;
-        for (int idx = myBandLo; idx <= myBandHi; idx++)
-        {
-            Debug.Log(spectrum[idx]);
-            sum += spectrum[idx];
-        }
-
-        var localScale = transform.localScale;
-        localScale.y = sum;
+        // You can't set `transform.localScale` directly, but this works.
+        Vector3 localScale = transform.localScale;
+        localScale.y = 
+            spectrumSamples.ToList()
+                .Skip(myBandLo)
+                .Take(numBands)
+                .Sum() * 10;
         transform.localScale = localScale;
     }
 }
