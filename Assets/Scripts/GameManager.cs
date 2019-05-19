@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public static readonly Bounds gameBounds =
         new Bounds(Vector3.zero, Vector3.one * 30);
 
-    public void FindPosition(GameObject gameObject)
+    public void FindEmptyLocation(GameObject gameObject)
     {
         gameObject.transform.position = createRandomLocation();
 
@@ -40,9 +40,10 @@ public class GameManager : MonoBehaviour
         {
             youLostText.alpha = 255;
             Destroy(ship);
-        } else
+        }
+        else
         {
-            FindPosition(ship);
+            FindEmptyLocation(ship);
         }
     }
 
