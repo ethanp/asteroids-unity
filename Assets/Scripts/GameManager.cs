@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI livesRemainingText;
     [SerializeField] private TMPro.TextMeshProUGUI youLostText;
 
-    // NB: readonly means it cannot be set in the Unity editor.
+    // NB: `readonly` makes it so it can't be set in the Unity editor.
     public static readonly Bounds gameBounds =
         new Bounds(Vector3.zero, Vector3.one * 30);
 
@@ -123,6 +123,6 @@ public class GameManager : MonoBehaviour
         return new Vector3(
             Random.Range(-10, 10),
             Random.Range(-10, 10),
-            0);
+            Random.Range(-10, 10));
     }
 }

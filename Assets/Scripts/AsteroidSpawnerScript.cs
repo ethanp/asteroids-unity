@@ -13,7 +13,6 @@ public class AsteroidSpawnerScript : MonoBehaviour
         lastSpawned = -timeToSpawn;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Time.time - lastSpawned > timeToSpawn)
@@ -23,7 +22,7 @@ public class AsteroidSpawnerScript : MonoBehaviour
                 Instantiate(GameManager.instance.GetRandomRockPrefab());
             newAsteroid.transform.localScale =
                 Vector3.one * Random.Range(2f, 8f);
-            GameManager.instance.FindPosition(newAsteroid);
+            GameManager.instance.FindEmptyLocation(newAsteroid);
         }
 
     }
