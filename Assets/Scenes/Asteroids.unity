@@ -1613,6 +1613,11 @@ PrefabInstance:
       propertyPath: numBands
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1045930148612668813, guid: 6602bcb82b9614b85b8030c063f67f7d,
+        type: 3}
+      propertyPath: scale
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1833913339774937007, guid: 6602bcb82b9614b85b8030c063f67f7d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1745,6 +1750,11 @@ PrefabInstance:
     - target: {fileID: 1045930148612668813, guid: 6602bcb82b9614b85b8030c063f67f7d,
         type: 3}
       propertyPath: numBands
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1045930148612668813, guid: 6602bcb82b9614b85b8030c063f67f7d,
+        type: 3}
+      propertyPath: scale
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1833913339774937007, guid: 6602bcb82b9614b85b8030c063f67f7d,

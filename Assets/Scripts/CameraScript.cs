@@ -26,8 +26,8 @@ public class CameraScript : MonoBehaviour
     {
         GetComponent<Camera>().backgroundColor =
             new Color(
-                r: Mathf.Abs(Mathf.Sin(Time.time / 20)),
-                g: Mathf.Abs(Mathf.Cos(Time.time / 20)),
+                r: Mathf.Abs(Mathf.Sin(Time.time / 10)) / 2,
+                g: Mathf.Abs(Mathf.Cos(Time.time / 10)) / 2,
                 b: .2f,
                 a: .8f);
     }

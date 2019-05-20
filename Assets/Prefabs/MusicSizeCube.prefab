@@ -105,4 +105,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBandLo: 0
-  numBands: 0
+  numBands: 20
+  scale: 100
