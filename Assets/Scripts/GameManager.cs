@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
 
     // NB: `readonly` makes it so it can't be set in the Unity editor.
     public static readonly Bounds gameBounds =
-        new Bounds(Vector3.zero, Vector3.one * 30);
+        new Bounds(
+            center: Vector3.zero,
+            size: Vector3.one * 30);
 
     public void FindEmptyLocation(GameObject gameObject)
     {
@@ -29,8 +31,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Going to another spot.");
             gameObject.transform.position = createRandomLocation();
         }
-
-        Debug.Log("Found a good spot.");
+        var msg = "Done looking for spots.";
+        Debug.Log(msg);
     }
 
     public void ShipDied(GameObject ship)

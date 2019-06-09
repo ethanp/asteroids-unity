@@ -45,15 +45,16 @@ public class ShipScript : MonoBehaviour
 
     private void fire()
     {
-        Instantiate(
+        GameObject bullet = Instantiate(
             original: bulletPrefab,
             position: transform.position + transform.forward,
-            rotation: transform.rotation)
-                .transform
-                    .Rotate(
-                        xAngle: 90,
-                        yAngle: 0,
-                        zAngle: 0);
+            rotation: transform.rotation);
+        bullet.transform
+            .Rotate(
+                xAngle: 90,
+                yAngle: 0,
+                zAngle: 0);
+        bullet.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
     }
 
     private void handleArrowKeys()
