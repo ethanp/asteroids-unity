@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI livesRemainingText;
     [SerializeField] private TMPro.TextMeshProUGUI youLostText;
 
+    [SerializeField] private float playBoxSize = 20;
+
+
     // NB: `readonly` makes it so it can't be set in the Unity editor.
     public static readonly Bounds gameBounds =
         new Bounds(
@@ -123,8 +126,8 @@ public class GameManager : MonoBehaviour
     private Vector3 createRandomLocation()
     {
         return new Vector3(
-            Random.Range(-10, 10),
-            Random.Range(-10, 10),
-            Random.Range(-10, 10));
+            Random.Range(-playBoxSize, playBoxSize),
+            Random.Range(-playBoxSize, playBoxSize),
+            Random.Range(-playBoxSize, playBoxSize));
     }
 }
