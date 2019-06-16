@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+[RequireComponent(typeof(MeshFilter))]
 public class MusicSizeCubeScript : MonoBehaviour
 {
 
@@ -49,7 +50,7 @@ public class MusicSizeCubeScript : MonoBehaviour
 
     private void resizeToMusic()
     {
-        // You can't set `transform.localScale` directly, but this works.
+        // You can't modify `transform.localScale` in-place, but this works.
         Vector3 localScale = transform.localScale;
 
         float amplitude =
@@ -65,6 +66,7 @@ public class MusicSizeCubeScript : MonoBehaviour
             Mathf.Lerp(
                 a: localScale.y,
                 b: targetSize,
+                // TODO: This should incorporate `Time.deltaTime`.
                 t: .4f);
 
         transform.localScale = localScale;

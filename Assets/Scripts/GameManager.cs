@@ -76,6 +76,26 @@ public class GameManager : MonoBehaviour
                 Resources.Load(
                     "Prefabs/Rock" + i)
                     as GameObject;
+
+        // TODO FIXME: Load bullets. I don't think the path is right.
+        // The formatting is definitely working though.
+        var bulletPrefabs = new List<GameObject>(100);
+        for (int i = 1; i <= 100; i++)
+        {
+            try
+            {
+                var str = string.Format("Audio/Bullets_01-{0:D2}", i);
+                Debug.Log("Str: " + str);
+                var rsrc = Resources.Load(str) as GameObject;
+                Debug.Log("rsrc: " + rsrc);
+                bulletPrefabs.Add(rsrc);
+            }
+            catch
+            {
+                Debug.LogWarning("An exception was caught.");
+                continue;
+            }
+        }
     }
 
     // This is recommended here:
