@@ -20,12 +20,12 @@ public class ShipScript : MonoBehaviour
     [SerializeField] private ParticleSystem upJet;
     [SerializeField] private ParticleSystem downJet;
 
-    private Dictionary<string, ParticleSystem> systems;
+    private Dictionary<string, ParticleSystem> emitters;
     private Rigidbody rigidbody_;
 
     void Start()
     {
-        systems = new Dictionary<string, ParticleSystem>
+        emitters = new Dictionary<string, ParticleSystem>
         {
             { "left", rightJet },
             { "right", leftJet },
@@ -85,7 +85,7 @@ public class ShipScript : MonoBehaviour
         if (Input.GetKey("w")) addTorque(-transform.right * sideForce);
         if (Input.GetKey("s")) addTorque(transform.right * sideForce);
 
-        foreach (KeyValuePair<string, ParticleSystem> kvp in systems)
+        foreach (KeyValuePair<string, ParticleSystem> kvp in emitters)
             if (!Input.GetKey(kvp.Key)) kvp.Value.Stop();
             else if (!kvp.Value.isEmitting) kvp.Value.Play();
     }
