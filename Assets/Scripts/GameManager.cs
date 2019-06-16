@@ -84,13 +84,9 @@ public class GameManager : MonoBehaviour
     //
     void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
-        // Persist between scenes.
-        DontDestroyOnLoad(gameObject);
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+        DontDestroyOnLoad(gameObject); // Persist between scenes.
     }
 
     private bool OverlapsExistingObject(GameObject newObject)

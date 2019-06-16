@@ -16,7 +16,8 @@ public class MusicSizeCubeScript : MonoBehaviour
     void Update()
     {
         readFromGlobalMasterMix();
-        resizeToMusic();
+        // resizeToMusic();
+        deform();
     }
 
     private void readFromGlobalMasterMix()
@@ -26,6 +27,24 @@ public class MusicSizeCubeScript : MonoBehaviour
                 samples: spectrumSamples,
                 channel: 0, // left + right channels.
                 window: FFTWindow.Hamming); // medium quality.
+    }
+
+    private void deform()
+    {
+        var mesh = GetComponent<MeshFilter>().mesh;
+        Vector3[] originalVertices = mesh.vertices;
+        Vector3[] displacedVertices = new Vector3[originalVertices.Length];
+        for (int i = 0; i < originalVertices.Length; i++)
+        {
+            float amt = .1f;
+            displacedVertices[i] =
+                new Vector3(
+                    x: originalVertices[i].x + Random.Range(-amt, amt),
+                    y: originalVertices[i].y + Random.Range(-amt, amt),
+                    z: originalVertices[i].z + Random.Range(-amt, amt));
+        }
+        mesh.vertices = displacedVertices;
+        mesh.RecalculateNormals();
     }
 
     private void resizeToMusic()
