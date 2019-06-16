@@ -35,19 +35,20 @@ public class CameraScript : MonoBehaviour
 
     private void followShip()
     {
-        // TODO Should be a lerp.
+        var ship = ship_.transform.position;
+        var back = -ship_.transform.forward * backwardsness;
+        var up = ship_.transform.up * upwardsness;
+        var followSpeed = Time.deltaTime * 2;
+
         transform.position =
             Vector3.Lerp(
                 a: transform.position,
-                b: ship_.transform.position
-                    - ship_.transform.forward * backwardsness
-                    + ship_.transform.up * upwardsness,
-                t: Time.deltaTime * 2);
+                b: ship + back + up,
+                t: followSpeed);
     }
 
     private void lookAtShip()
     {
-        // TODO Should be a slerp.
         transform.LookAt(ship_.transform, ship_.transform.up);
         transform.Rotate(downAngle, 0, 0);
     }
