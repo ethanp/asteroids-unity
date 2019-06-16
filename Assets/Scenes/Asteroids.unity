@@ -1375,6 +1375,21 @@ PrefabInstance:
       propertyPath: ShapeModule.radius.value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1437646302294309465, guid: 477b4af9553ca49dcbd1ff759159fd27,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437646302294309465, guid: 477b4af9553ca49dcbd1ff759159fd27,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.30112046
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437646302294309465, guid: 477b4af9553ca49dcbd1ff759159fd27,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.054957304
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 477b4af9553ca49dcbd1ff759159fd27, type: 3}
 --- !u!4 &964029624 stripped
