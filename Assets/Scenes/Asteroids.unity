@@ -1555,6 +1555,9 @@ MonoBehaviour:
   userLostClip: {fileID: 0}
   userWonClip: {fileID: 0}
   backgroundMusicClip: {fileID: 1177185451}
+  forwardThrusterClip: {fileID: 0}
+  reverseThrusterClip: {fileID: 0}
+  turnThursterClip: {fileID: 0}
 --- !u!82 &1177185451
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2030,7 +2033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02918d1814d054509bb5af80ed99e078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToSpawn: 4
+  timeToSpawn: 3
 --- !u!4 &1993514766
 Transform:
   m_ObjectHideFlags: 0

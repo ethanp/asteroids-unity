@@ -14,8 +14,10 @@ public class AudioManagerScript : MonoBehaviour
     [SerializeField] private AudioSource reverseThrusterClip;
     [SerializeField] private AudioSource turnThursterClip;
 
-    // TODO Actually I want the AudioSource to be on the Ship so that the
-    //      directionality is right.
+    // TODO Ensure the directionality is right. This may mean we must put the 
+    //      AudioSource on whatever GameObject is emitting the sound or 
+    //      something.
+
     public void PlayBulletFired() { bulletFiredClip.Play(); }
     public void PlayShipExplosion() { shipExplosionClip.Play(); }
     public void PlayAsteroidExplosion() { asteroidExplosionClip.Play(); }

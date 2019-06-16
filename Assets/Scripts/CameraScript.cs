@@ -22,6 +22,7 @@ public class CameraScript : MonoBehaviour
         lookAtShip();
     }
 
+    /** Background color slowly varies over time. */
     private void updateBackgroundColor()
     {
         GetComponent<Camera>().backgroundColor =
@@ -36,9 +37,12 @@ public class CameraScript : MonoBehaviour
     {
         // TODO Should be a lerp.
         transform.position =
-            ship_.transform.position
-                - ship_.transform.forward * backwardsness
-                + ship_.transform.up * upwardsness;
+            Vector3.Lerp(
+                a: transform.position,
+                b: ship_.transform.position
+                    - ship_.transform.forward * backwardsness
+                    + ship_.transform.up * upwardsness,
+                t: Time.deltaTime * 2);
     }
 
     private void lookAtShip()
