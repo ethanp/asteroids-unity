@@ -80,9 +80,9 @@ public class AudioManagerScript : MonoBehaviour
        else Debug.Log("forwardThrusterClip is not set.");
     }
     public void PlayReverseThruster() {
-        if (reverseThrusterClip != null)
+        if (reverseThrusterClip)
             reverseThrusterClip.Play();
-        else Debug.Log("reverseThrusterClip != null is not set.");
+        else Debug.Log("reverseThrusterClip is not set.");
     }
     public void PlayTurnThruster() {
        if (turnThursterClip)
