@@ -20,6 +20,14 @@ public class AudioManagerScript : MonoBehaviour
         StartMusicAtRandomPosition();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ToggleMusicPlaying();
+        }
+    }
+
     // TODO Ensure the directionality is right. This may mean we must put the 
     //      AudioSource on whatever GameObject is emitting the sound or 
     //      something.
@@ -28,6 +36,13 @@ public class AudioManagerScript : MonoBehaviour
     {
         backgroundMusicClip.time = backgroundMusicClip.clip.length * Random.value;
         backgroundMusicClip.Play();
+    }
+
+    public void ToggleMusicPlaying()
+    {
+        if (backgroundMusicClip.isPlaying)
+            backgroundMusicClip.Pause();
+        else backgroundMusicClip.UnPause();
     }
 
     public void PlayBulletFired() { bulletFiredClip.Play(); }
