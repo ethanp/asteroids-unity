@@ -14,9 +14,21 @@ public class AudioManagerScript : MonoBehaviour
     [SerializeField] private AudioSource reverseThrusterClip;
     [SerializeField] private AudioSource turnThursterClip;
 
+    /* NB: Methods are private by default! */
+    void Start()
+    {
+        StartMusicAtRandomPosition();
+    }
+
     // TODO Ensure the directionality is right. This may mean we must put the 
     //      AudioSource on whatever GameObject is emitting the sound or 
     //      something.
+
+    public void StartMusicAtRandomPosition()
+    {
+        backgroundMusicClip.time = backgroundMusicClip.clip.length * Random.value;
+        backgroundMusicClip.Play();
+    }
 
     public void PlayBulletFired() { bulletFiredClip.Play(); }
     public void PlayShipExplosion() { shipExplosionClip.Play(); }

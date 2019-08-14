@@ -156,11 +156,9 @@ public class GameManager : MonoBehaviour
             Random.Range(-playBoxSize, playBoxSize),
             Random.Range(-playBoxSize, playBoxSize),
             Random.Range(-playBoxSize, playBoxSize));
+
         Vector3 shipLoc = GetShip().transform.position;
-        Vector3 newAsteroidLoc = shipLoc + randomVec;
-        Debug.Log("Ship loc: " + shipLoc);
-        Debug.Log("Asteroid loc: " + newAsteroidLoc);
-        return newAsteroidLoc;
-        //return randomVec;
+
+        return shipLoc + randomVec;
     }
 }

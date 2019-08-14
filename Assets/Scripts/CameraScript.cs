@@ -6,9 +6,9 @@ public class CameraScript : MonoBehaviour
 {
     private GameObject ship_;
 
-    [SerializeField] private float backwardsness;
-    [SerializeField] private float upwardsness;
-    [SerializeField] private float downAngle;
+    [SerializeField] private float distanceBehindShip_;
+    [SerializeField] private float distanceAboveShip_;
+    [SerializeField] private float angleToFaceDownwards_;
 
     void Start()
     {
@@ -17,13 +17,13 @@ public class CameraScript : MonoBehaviour
 
     void Update()
     {
-        updateBackgroundColor();
-        followShip();
-        lookAtShip();
+        slowlyVaryBackgroundColor();
+        updatePositionToFollowShip();
+        updateRotationToLookAtShip();
     }
 
     /** Background color slowly varies over time. */
-    private void updateBackgroundColor()
+    private void slowlyVaryBackgroundColor()
     {
         GetComponent<Camera>().backgroundColor =
             new Color(
@@ -33,11 +33,11 @@ public class CameraScript : MonoBehaviour
                 a: .8f);
     }
 
-    private void followShip()
+    private void updatePositionToFollowShip()
     {
         Vector3 ship = ship_.transform.position;
-        Vector3 back = -ship_.transform.forward * backwardsness;
-        Vector3 up = ship_.transform.up * upwardsness;
+        Vector3 back = -ship_.transform.forward * distanceBehindShip_;
+        Vector3 up = ship_.transform.up * distanceAboveShip_;
         Vector3 newPosition = ship + back + up;
 
         float followSpeed = Time.deltaTime * 2;
@@ -49,9 +49,9 @@ public class CameraScript : MonoBehaviour
                 t: followSpeed);
     }
 
-    private void lookAtShip()
+    private void updateRotationToLookAtShip()
     {
         transform.LookAt(ship_.transform, ship_.transform.up);
-        transform.Rotate(downAngle, 0, 0);
+        transform.Rotate(angleToFaceDownwards_, 0, 0);
     }
 }
