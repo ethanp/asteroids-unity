@@ -14,10 +14,13 @@ public class AudioManagerScript : MonoBehaviour
     [SerializeField] private AudioSource reverseThrusterClip;
     [SerializeField] private AudioSource turnThursterClip;
 
+    [SerializeField] private bool startPaused;
+
     /* NB: Methods are private by default! */
     void Start()
     {
         StartMusicAtRandomPosition();
+        if (startPaused) ToggleMusicPlaying();
     }
 
     void Update()
