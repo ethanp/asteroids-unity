@@ -1622,6 +1622,7 @@ MonoBehaviour:
   forwardThrusterClip: {fileID: 0}
   reverseThrusterClip: {fileID: 0}
   turnThursterClip: {fileID: 0}
+  startPaused: 1
 --- !u!82 &1177185451
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1750,7 +1751,7 @@ MonoBehaviour:
   scoreText: {fileID: 83246378}
   livesRemainingText: {fileID: 379577299}
   youLostText: {fileID: 1498636947}
-  playBoxSize: 20
+  asteroidSpawnRange: 20
 --- !u!4 &1344172042
 Transform:
   m_ObjectHideFlags: 0
