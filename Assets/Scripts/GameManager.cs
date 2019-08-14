@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI livesRemainingText;
     [SerializeField] private TMPro.TextMeshProUGUI youLostText;
 
+    // TODO: Remove this.
     [SerializeField] private float playBoxSize = 20;
 
 
@@ -22,17 +23,18 @@ public class GameManager : MonoBehaviour
     public static readonly Bounds gameBounds =
         new Bounds(
             center: Vector3.zero,
-            size: Vector3.one * 30);
+            size: Vector3.one * 3000);
 
-    public void FindEmptyLocation(GameObject gameObject)
+    // TODO(feature: asteroids spawn near player): We gotta change this!
+    public void FindEmptyLocationNearPlayer(GameObject gameObject)
     {
-        gameObject.transform.position = createRandomLocation();
+        gameObject.transform.position = createRandomLocationNearPlayer();
 
         // TODO This should be a `while`-loop, but it was infinite-looping.
         if (GameManager.instance.OverlapsExistingObject(gameObject))
         {
             Debug.Log("Going to another spot.");
-            gameObject.transform.position = createRandomLocation();
+            gameObject.transform.position = createRandomLocationNearPlayer();
         }
         var msg = "Done looking for spots.";
         Debug.Log(msg);
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            FindEmptyLocation(ship);
+            FindEmptyLocationNearPlayer(ship);
         }
     }
 
@@ -92,6 +94,7 @@ public class GameManager : MonoBehaviour
             }
             catch
             {
+                // TODO: Print out the exception.
                 Debug.LogWarning("An exception was caught.");
                 continue;
             }
@@ -109,14 +112,17 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // Persist between scenes.
     }
 
+    // TODO This is buggy and I don't know why.
     private bool OverlapsExistingObject(GameObject newObject)
     {
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
         foreach (GameObject existingObject in allObjects)
         {
-            Debug.Log("Checking collision with " + existingObject);
             if (newObject != existingObject)
+            {
+                Debug.Log("Checking collision with " + existingObject);
                 if (existingObject.activeInHierarchy)
+                {
                     if (existingObject.GetComponent<Collider>() != null)
                     {
                         Debug.Log("Checking bounds.");
@@ -127,6 +133,11 @@ public class GameManager : MonoBehaviour
                         }
                         Debug.Log("It does NOT intersect.");
                     }
+                } else
+                {
+                    Debug.Log("Actually, it's disabled.");
+                }
+            }
         }
         return false;
     }
@@ -139,11 +150,17 @@ public class GameManager : MonoBehaviour
         throw new UnityException("Couldn't find the ship.");
     }
 
-    private Vector3 createRandomLocation()
+    private Vector3 createRandomLocationNearPlayer()
     {
-        return new Vector3(
+        Vector3 randomVec = new Vector3(
             Random.Range(-playBoxSize, playBoxSize),
             Random.Range(-playBoxSize, playBoxSize),
             Random.Range(-playBoxSize, playBoxSize));
+        Vector3 shipLoc = GetShip().transform.position;
+        Vector3 newAsteroidLoc = shipLoc + randomVec;
+        Debug.Log("Ship loc: " + shipLoc);
+        Debug.Log("Asteroid loc: " + newAsteroidLoc);
+        return newAsteroidLoc;
+        //return randomVec;
     }
 }

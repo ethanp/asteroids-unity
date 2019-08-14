@@ -35,15 +35,17 @@ public class CameraScript : MonoBehaviour
 
     private void followShip()
     {
-        var ship = ship_.transform.position;
-        var back = -ship_.transform.forward * backwardsness;
-        var up = ship_.transform.up * upwardsness;
-        var followSpeed = Time.deltaTime * 2;
+        Vector3 ship = ship_.transform.position;
+        Vector3 back = -ship_.transform.forward * backwardsness;
+        Vector3 up = ship_.transform.up * upwardsness;
+        Vector3 newPosition = ship + back + up;
+
+        float followSpeed = Time.deltaTime * 2;
 
         transform.position =
             Vector3.Lerp(
                 a: transform.position,
-                b: ship + back + up,
+                b: newPosition,
                 t: followSpeed);
     }
 

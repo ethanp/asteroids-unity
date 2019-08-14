@@ -5,6 +5,8 @@ using UnityEngine;
 public class ShipScript : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletEmitterLeft;
+    [SerializeField] private GameObject bulletEmitterRight;
 
     private float timeGunLastFired = 0f;
     [SerializeField] private float backoffBetweenFires;
@@ -33,12 +35,13 @@ public class ShipScript : MonoBehaviour
             { "down", frontJet },
             { "w", downJet },
             { "s", upJet }
+            // TODO: Add mappings "a" -> "left", "d" -> "right".
         };
 
         rigidbody_ = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     void Update()
     {
         if (shouldFire())
@@ -50,30 +53,47 @@ public class ShipScript : MonoBehaviour
         handleArrowKeys();
     }
 
+    /** 
+     * Check for space bar press and maintain slow cadence.
+     * We do allow user to _hold_ the space bar.
+     */
     private bool shouldFire()
     {
-        bool firing =
+        bool shouldFire =
             Input.GetKey("space")
                 && Time.time - timeGunLastFired > backoffBetweenFires;
 
-        if (firing)
+        if (shouldFire)
             timeGunLastFired = Time.time;
 
-        return firing;
+        return shouldFire;
     }
 
     private void fire()
     {
-        GameObject bullet = Instantiate(
+        GameObject leftBullet = Instantiate(
             original: bulletPrefab,
-            position: transform.position + transform.forward,
+            position: bulletEmitterLeft.transform.position,
             rotation: transform.rotation);
-        bullet.transform
+        leftBullet.transform
             .Rotate(
                 xAngle: 90,
                 yAngle: 0,
                 zAngle: 0);
-        bullet.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
+        //bullet.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
+        leftBullet.GetComponent<Rigidbody>().velocity = transform.forward * 30;
+
+        GameObject rightBullet = Instantiate(
+            original: bulletPrefab,
+            position: bulletEmitterRight.transform.position,
+            rotation: transform.rotation);
+        rightBullet.transform
+            .Rotate(
+                xAngle: 90,
+                yAngle: 0,
+                zAngle: 0);
+        //bullet.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
+        rightBullet.GetComponent<Rigidbody>().velocity = transform.forward * 60;
     }
 
     private void handleArrowKeys()
@@ -90,17 +110,17 @@ public class ShipScript : MonoBehaviour
             else if (!kvp.Value.isEmitting) kvp.Value.Play();
     }
 
-    private void addForce(Vector3 f)
+    private void addForce(Vector3 force)
     {
         rigidbody_.AddForce(
-            force: f,
+            force: force,
             mode: ForceMode.Force);
     }
 
-    private void addTorque(Vector3 t)
+    private void addTorque(Vector3 torque)
     {
         rigidbody_.AddTorque(
-            torque: t,
+            torque: torque,
             mode: ForceMode.Force);
     }
 }
