@@ -8,7 +8,7 @@ public class BulletScript : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Rigidbody>().velocity += transform.up * 2;
+        GetComponent<Rigidbody>().velocity += transform.up * 15;
         StartCoroutine(die());
     }
 
