@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    private GameObject ship_;
-
-    [SerializeField] private float distanceBehindShip_;
-    [SerializeField] private float distanceAboveShip_;
-    [SerializeField] private float angleToFaceDownwards_;
+    [SerializeField] float distanceBehindShip_;
+    [SerializeField] float distanceAboveShip_;
+    [SerializeField] float angleToFaceDownwards_;
 
     void Update()
     {
-        if (!ship_) ship_ = GameManager.instance.ship_;
         slowlyVaryBackgroundColor();
         updatePositionToFollowShip();
         updateRotationToLookAtShip();
     }
 
     /** Background color slowly varies over time. */
-    private void slowlyVaryBackgroundColor()
+    void slowlyVaryBackgroundColor()
     {
         GetComponent<Camera>().backgroundColor =
             new Color(
@@ -29,13 +26,17 @@ public class CameraScript : MonoBehaviour
                 a: .8f);
     }
 
-    private void updatePositionToFollowShip()
+    void updatePositionToFollowShip()
     {
-        Vector3 ship = ship_.transform.position;
-        Vector3 back = -ship_.transform.forward * distanceBehindShip_;
-        Vector3 up = ship_.transform.up * distanceAboveShip_;
-        Vector3 newPosition = ship + back + up;
+        GameObject ship = GameManager.instance.ship_;
+        Vector3 shipLoc = ship.transform.position;
+        Vector3 backness = -ship.transform.forward * distanceBehindShip_;
+        Vector3 upness = ship.transform.up * distanceAboveShip_;
+        Vector3 newPosition = shipLoc + backness + upness;
 
+        // This means that we always move a little bit closer to being pointed
+        // in the direction that we want to be (with some kind of taylor series
+        // [~exponential] backoff, or something like that).
         float followSpeed = Time.deltaTime * 2;
 
         transform.position =
@@ -45,9 +46,10 @@ public class CameraScript : MonoBehaviour
                 t: followSpeed);
     }
 
-    private void updateRotationToLookAtShip()
+    void updateRotationToLookAtShip()
     {
-        transform.LookAt(ship_.transform, ship_.transform.up);
+        GameObject ship = GameManager.instance.ship_;
+        transform.LookAt(ship.transform, ship.transform.up);
         transform.Rotate(angleToFaceDownwards_, 0, 0);
     }
 }

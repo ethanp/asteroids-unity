@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
 {
-    private Vector3 direction;
+    Vector3 direction;
 
-    [SerializeField] private Material explodedAsteroidMaterial;
+    [SerializeField] Material explodedAsteroidMaterial;
 
-    private void Start()
+    void Start()
     {
         Vector3 notYet = Random.onUnitSphere;
         direction = new Vector3(notYet.x, notYet.y, 0);
     }
 
-    private void Update()
+    void Update()
     {
         if (!GameManager.gameBounds
                 .Contains(
@@ -25,12 +25,12 @@ public class AsteroidScript : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         GetComponent<Rigidbody>().AddForce(direction);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("ship"))
         {
@@ -62,7 +62,7 @@ public class AsteroidScript : MonoBehaviour
         StartCoroutine(createExplosion());
     }
 
-    private IEnumerator createExplosion()
+    IEnumerator createExplosion()
     {
         int COUNT = 10;
         GameObject[] children = new GameObject[COUNT];
@@ -78,7 +78,7 @@ public class AsteroidScript : MonoBehaviour
             Destroy(children[i]);
     }
 
-    private GameObject createExplosionRock()
+    GameObject createExplosionRock()
     {
         Vector3 loc = Random.onUnitSphere;
         GameObject explosionRock =

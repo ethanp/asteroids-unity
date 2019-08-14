@@ -6,17 +6,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    private readonly GameObject[] rockPrefabs = new GameObject[11];
+    readonly GameObject[] rockPrefabs = new GameObject[11];
 
-    private int score = 0;
-    private int livesRemaining = 3;
+    int score = 0;
+    int livesRemaining = 3;
 
-    [SerializeField] private TMPro.TextMeshProUGUI scoreText;
-    [SerializeField] private TMPro.TextMeshProUGUI livesRemainingText;
-    [SerializeField] private TMPro.TextMeshProUGUI youLostText;
+    [SerializeField] TMPro.TextMeshProUGUI scoreText;
+    [SerializeField] TMPro.TextMeshProUGUI livesRemainingText;
+    [SerializeField] TMPro.TextMeshProUGUI youLostText;
 
     // TODO: Remove this.
-    [SerializeField] private float asteroidSpawnRange = 20;
+    [SerializeField] float asteroidSpawnRange = 20;
 
 
     // NB: `readonly` makes it so it can't be set in the Unity editor.
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private static Bounds bounds(GameObject gameObject)
+    static Bounds bounds(GameObject gameObject)
     {
         return gameObject.GetComponent<Collider>().bounds;
     }
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
     }
 
     // TODO This is buggy and I don't know why.
-    private bool OverlapsExistingObject(GameObject newObject)
+    bool OverlapsExistingObject(GameObject newObject)
     {
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
         foreach (GameObject existingObject in allObjects)
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
         throw new UnityException("Couldn't find the music.");
     }
 
-    private Vector3 createRandomLocationNearPlayer()
+    Vector3 createRandomLocationNearPlayer()
     {
         Vector3 randomVec = new Vector3(
             Random.Range(-asteroidSpawnRange, asteroidSpawnRange),

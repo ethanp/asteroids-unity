@@ -7,12 +7,12 @@ using System.Linq;
 public class MusicSizeCubeScript : MonoBehaviour
 {
 
-    [SerializeField] private int myBandLo;
-    [SerializeField] private int numBands;
-    [SerializeField] private int scale;
+    [SerializeField] int myBandLo;
+    [SerializeField] int numBands;
+    [SerializeField] int scale;
 
-    private const int MINIMUM_QUALITY = 64;
-    private readonly float[] spectrumSamples = new float[MINIMUM_QUALITY];
+    const int MINIMUM_QUALITY = 64;
+    readonly float[] spectrumSamples = new float[MINIMUM_QUALITY];
 
     void Update()
     {
@@ -21,7 +21,7 @@ public class MusicSizeCubeScript : MonoBehaviour
         deform();
     }
 
-    private void readFromGlobalMasterMix()
+    void readFromGlobalMasterMix()
     {
         AudioListener
             .GetSpectrumData(
@@ -30,7 +30,7 @@ public class MusicSizeCubeScript : MonoBehaviour
                 window: FFTWindow.Hamming); // medium quality.
     }
 
-    private void deform()
+    void deform()
     {
         Mesh mesh = GetComponent<MeshFilter>().mesh;
         Vector3[] originalVertices = mesh.vertices;
@@ -49,7 +49,7 @@ public class MusicSizeCubeScript : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
-    private void resizeToMusic()
+    void resizeToMusic()
     {
         float amplitude =
             spectrumSamples

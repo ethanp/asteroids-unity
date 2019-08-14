@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AsteroidSpawnerScript : MonoBehaviour
 {
-    [SerializeField] private float timeToSpawn;
-    private float lastSpawned;
+    [SerializeField] float timeToSpawn;
+    float lastSpawned;
 
-    private void Start()
+    void Start()
     {
         // Create one asteroid immediately on game start.
         lastSpawned = -timeToSpawn;
