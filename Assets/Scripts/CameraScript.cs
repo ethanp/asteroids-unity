@@ -10,13 +10,9 @@ public class CameraScript : MonoBehaviour
     [SerializeField] private float distanceAboveShip_;
     [SerializeField] private float angleToFaceDownwards_;
 
-    void Start()
-    {
-        ship_ = GameManager.instance.GetShip();
-    }
-
     void Update()
     {
+        if (!ship_) ship_ = GameManager.instance.ship_;
         slowlyVaryBackgroundColor();
         updatePositionToFollowShip();
         updateRotationToLookAtShip();

@@ -96,32 +96,32 @@ public class ShipScript : MonoBehaviour
     {
         if (Input.GetKey("up"))
         {
-            GameManager.instance.GetAudioManager().PlayReverseThruster();
+            GameManager.instance.audioManager_.PlayReverseThruster();
             addForce(transform.forward * forwardForce);
         }
         if (Input.GetKey("down"))
         {
-            GameManager.instance.GetAudioManager().PlayForwardThruster();
+            GameManager.instance.audioManager_.PlayForwardThruster();
             addForce(-transform.forward * forwardForce);
         }
         if (Input.GetKey("left"))
         {
-            GameManager.instance.GetAudioManager().PlayTurnThruster();
+            GameManager.instance.audioManager_.PlayTurnThruster();
             addTorque(-transform.up * sideForce);
         }
         if (Input.GetKey("right"))
         {
-            GameManager.instance.GetAudioManager().PlayTurnThruster();
+            GameManager.instance.audioManager_.PlayTurnThruster();
             addTorque(transform.up * sideForce);
         }
         if (Input.GetKey("w"))
         {
-            GameManager.instance.GetAudioManager().PlayTurnThruster();
+            GameManager.instance.audioManager_.PlayTurnThruster();
             addTorque(-transform.right * sideForce);
         }
         if (Input.GetKey("s"))
         {
-            GameManager.instance.GetAudioManager().PlayTurnThruster();
+            GameManager.instance.audioManager_.PlayTurnThruster();
             addTorque(transform.right * sideForce);
         }
 

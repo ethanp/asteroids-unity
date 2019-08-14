@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance = null;
+    public static GameManager instance;
 
     private readonly GameObject[] rockPrefabs = new GameObject[11];
 
@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
         new Bounds(
             center: Vector3.zero,
             size: Vector3.one * 3000);
+
+    public GameObject ship_;
+    public AudioManagerScript audioManager_;
 
     // TODO(feature: asteroids spawn near player): We gotta change this!
     public void FindEmptyLocationNearPlayer(GameObject gameObject)
@@ -46,12 +49,12 @@ public class GameManager : MonoBehaviour
         if (livesRemaining == 0)
         {
             youLostText.alpha = 255;
-            GetAudioManager().PlayUserLost();
+            audioManager_.PlayUserLost();
             Destroy(ship);
         }
         else
         {
-            GetAudioManager().PlayShipExplosion();
+            audioManager_.PlayShipExplosion();
             FindEmptyLocationNearPlayer(ship);
         }
     }
@@ -59,7 +62,7 @@ public class GameManager : MonoBehaviour
     public void ScoreAsteroidHit()
     {
         scoreText.text = "Score: " + ++score;
-        GetAudioManager().PlayAsteroidExplosion();
+        audioManager_.PlayAsteroidExplosion();
     }
 
     public GameObject GetRandomRockPrefab()
@@ -75,6 +78,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        ship_ = getShip();
+        audioManager_ = getAudioManager();
+
         // Load rock prefabs.
         for (int i = 1; i <= 11; i++)
             rockPrefabs[i - 1] =
@@ -145,15 +151,17 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public GameObject GetShip()
+    GameObject getShip()
     {
+        // Assumes that the ShipScript is _only_ attached to the ship.
         foreach (GameObject gObj in FindObjectsOfType<GameObject>())
             if (gObj.GetComponent<ShipScript>() != null)
                 return gObj;
+
         throw new UnityException("Couldn't find the ship.");
     }
 
-    public AudioManagerScript GetAudioManager()
+    AudioManagerScript getAudioManager()
     {
         foreach (GameObject gObj in FindObjectsOfType<GameObject>())
         {
@@ -161,6 +169,7 @@ public class GameManager : MonoBehaviour
             if (script != null)
                 return script;
         }
+
         throw new UnityException("Couldn't find the music.");
     }
 
@@ -171,7 +180,7 @@ public class GameManager : MonoBehaviour
             Random.Range(-asteroidSpawnRange, asteroidSpawnRange),
             Random.Range(-asteroidSpawnRange, asteroidSpawnRange));
 
-        Vector3 shipLoc = GetShip().transform.position;
+        Vector3 shipLoc = ship_.transform.position;
 
         return shipLoc + randomVec;
     }
