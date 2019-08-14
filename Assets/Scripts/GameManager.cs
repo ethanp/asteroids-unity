@@ -46,10 +46,12 @@ public class GameManager : MonoBehaviour
         if (livesRemaining == 0)
         {
             youLostText.alpha = 255;
+            GetAudioManager().PlayUserLost();
             Destroy(ship);
         }
         else
         {
+            GetAudioManager().PlayShipExplosion();
             FindEmptyLocationNearPlayer(ship);
         }
     }
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
     public void ScoreAsteroidHit()
     {
         scoreText.text = "Score: " + ++score;
+        GetAudioManager().PlayAsteroidExplosion();
     }
 
     public GameObject GetRandomRockPrefab()
@@ -148,6 +151,17 @@ public class GameManager : MonoBehaviour
             if (gObj.GetComponent<ShipScript>() != null)
                 return gObj;
         throw new UnityException("Couldn't find the ship.");
+    }
+
+    public AudioManagerScript GetAudioManager()
+    {
+        foreach (GameObject gObj in FindObjectsOfType<GameObject>())
+        {
+            var script = gObj.GetComponent<AudioManagerScript>();
+            if (script != null)
+                return script;
+        }
+        throw new UnityException("Couldn't find the music.");
     }
 
     private Vector3 createRandomLocationNearPlayer()

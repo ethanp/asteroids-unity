@@ -44,8 +44,7 @@ public class ShipScript : MonoBehaviour
     // Update is called once per frame.
     void Update()
     {
-        if (shouldFire())
-            fire();
+        maybeFire();
     }
 
     private void FixedUpdate()
@@ -57,20 +56,17 @@ public class ShipScript : MonoBehaviour
      * Check for space bar press and maintain slow cadence.
      * We do allow user to _hold_ the space bar.
      */
-    private bool shouldFire()
+    private void maybeFire()
     {
         bool shouldFire =
             Input.GetKey("space")
                 && Time.time - timeGunLastFired > backoffBetweenFires;
 
-        if (shouldFire)
-            timeGunLastFired = Time.time;
+        if (!shouldFire)
+            return;
 
-        return shouldFire;
-    }
+        timeGunLastFired = Time.time;
 
-    private void fire()
-    {
         GameObject leftBullet = Instantiate(
             original: bulletPrefab,
             position: bulletEmitterLeft.transform.position,
@@ -98,12 +94,36 @@ public class ShipScript : MonoBehaviour
 
     private void handleArrowKeys()
     {
-        if (Input.GetKey("up")) addForce(transform.forward * forwardForce);
-        if (Input.GetKey("down")) addForce(-transform.forward * forwardForce);
-        if (Input.GetKey("left")) addTorque(-transform.up * sideForce);
-        if (Input.GetKey("right")) addTorque(transform.up * sideForce);
-        if (Input.GetKey("w")) addTorque(-transform.right * sideForce);
-        if (Input.GetKey("s")) addTorque(transform.right * sideForce);
+        if (Input.GetKey("up"))
+        {
+            GameManager.instance.GetAudioManager().PlayReverseThruster();
+            addForce(transform.forward * forwardForce);
+        }
+        if (Input.GetKey("down"))
+        {
+            GameManager.instance.GetAudioManager().PlayForwardThruster();
+            addForce(-transform.forward * forwardForce);
+        }
+        if (Input.GetKey("left"))
+        {
+            GameManager.instance.GetAudioManager().PlayTurnThruster();
+            addTorque(-transform.up * sideForce);
+        }
+        if (Input.GetKey("right"))
+        {
+            GameManager.instance.GetAudioManager().PlayTurnThruster();
+            addTorque(transform.up * sideForce);
+        }
+        if (Input.GetKey("w"))
+        {
+            GameManager.instance.GetAudioManager().PlayTurnThruster();
+            addTorque(-transform.right * sideForce);
+        }
+        if (Input.GetKey("s"))
+        {
+            GameManager.instance.GetAudioManager().PlayTurnThruster();
+            addTorque(transform.right * sideForce);
+        }
 
         foreach (KeyValuePair<string, ParticleSystem> kvp in emitters)
             if (!Input.GetKey(kvp.Key)) kvp.Value.Stop();
