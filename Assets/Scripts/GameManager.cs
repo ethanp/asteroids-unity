@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI youLostText;
 
     // TODO: Remove this.
-    [SerializeField] private float playBoxSize = 20;
+    [SerializeField] private float asteroidSpawnRange = 20;
 
 
     // NB: `readonly` makes it so it can't be set in the Unity editor.
@@ -153,9 +153,9 @@ public class GameManager : MonoBehaviour
     private Vector3 createRandomLocationNearPlayer()
     {
         Vector3 randomVec = new Vector3(
-            Random.Range(-playBoxSize, playBoxSize),
-            Random.Range(-playBoxSize, playBoxSize),
-            Random.Range(-playBoxSize, playBoxSize));
+            Random.Range(-asteroidSpawnRange, asteroidSpawnRange),
+            Random.Range(-asteroidSpawnRange, asteroidSpawnRange),
+            Random.Range(-asteroidSpawnRange, asteroidSpawnRange));
 
         Vector3 shipLoc = GetShip().transform.position;
 
