@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField] float distanceBehindShip_;
-    [SerializeField] float distanceAboveShip_;
-    [SerializeField] float angleToFaceDownwards_;
+    [SerializeField] float distanceBehindShip;
+    [SerializeField] float distanceAboveShip;
+    [SerializeField] float angleToFaceDownwards;
+    [SerializeField] float colorChangeRate;
+    [SerializeField] float darkness;
 
     void Update()
     {
@@ -18,20 +20,34 @@ public class CameraScript : MonoBehaviour
 
     void setBackgroundColorBasedOnGlobalShipPosition()
     {
+        Vector3 shipLoc = GameManager.instance.ship_.transform.position;
         GetComponent<Camera>().backgroundColor =
             new Color(
-                r: Mathf.Abs(Mathf.Cos(transform.position.x / 200)) / 5,
-                g: Mathf.Abs(Mathf.Cos(transform.position.y / 200)) / 4,
-                b: Mathf.Abs(Mathf.Cos(transform.position.z / 200)) / 4,
+                r: positionToColorValue(shipLoc.x),
+                g: positionToColorValue(shipLoc.y),
+                b: positionToColorValue(shipLoc.z),
                 a: .8f);
+    }
+
+    float positionToColorValue(float p)
+    {
+        float scaled = p / colorChangeRate;
+        int integerComponent = Mathf.FloorToInt(scaled);
+        float fractionalComponent = scaled - integerComponent;
+        float cycling =
+            integerComponent % 2 == 0
+                ? fractionalComponent
+                : 1 - fractionalComponent;
+        float dimmed = cycling / darkness;
+        return dimmed;
     }
 
     void updatePositionToFollowShip()
     {
         GameObject ship = GameManager.instance.ship_;
         Vector3 shipLoc = ship.transform.position;
-        Vector3 backness = -ship.transform.forward * distanceBehindShip_;
-        Vector3 upness = ship.transform.up * distanceAboveShip_;
+        Vector3 backness = -ship.transform.forward * distanceBehindShip;
+        Vector3 upness = ship.transform.up * distanceAboveShip;
         Vector3 distance = (backness + upness) * zoomLevel.Multiplier();
         Vector3 newPosition = shipLoc + distance;
 
@@ -51,7 +67,7 @@ public class CameraScript : MonoBehaviour
     {
         GameObject ship = GameManager.instance.ship_;
         transform.LookAt(ship.transform, ship.transform.up);
-        transform.Rotate(angleToFaceDownwards_, 0, 0);
+        transform.Rotate(angleToFaceDownwards, 0, 0);
     }
 
 

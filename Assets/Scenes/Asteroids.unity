@@ -1288,9 +1288,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a1cb0343599467bbfe7fabaef37f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceBehindShip_: 30
-  distanceAboveShip_: 10
-  angleToFaceDownwards_: -7
+  distanceBehindShip: 30
+  distanceAboveShip: 10
+  angleToFaceDownwards: -7
+  colorChangeRate: 200
+  darkness: 4
 --- !u!82 &963194230
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1849,6 +1851,8 @@ MonoBehaviour:
   livesRemainingText: {fileID: 379577299}
   youLostText: {fileID: 1498636947}
   asteroidSpawnRange: 20
+  ship_: {fileID: 0}
+  audioManager_: {fileID: 0}
 --- !u!4 &1344172042
 Transform:
   m_ObjectHideFlags: 0
