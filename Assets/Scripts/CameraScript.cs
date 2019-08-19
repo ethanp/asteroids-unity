@@ -10,20 +10,19 @@ public class CameraScript : MonoBehaviour
 
     void Update()
     {
-        slowlyVaryBackgroundColor();
+        setBackgroundColorBasedOnGlobalShipPosition();
         updateZoom();
         updatePositionToFollowShip();
         updateRotationToLookAtShip();
     }
 
-    /** Background color slowly varies over time. */
-    void slowlyVaryBackgroundColor()
+    void setBackgroundColorBasedOnGlobalShipPosition()
     {
         GetComponent<Camera>().backgroundColor =
             new Color(
-                r: .2f,
-                g: Mathf.Abs(Mathf.Cos(Time.time / 10)) / 3,
-                b: Mathf.Abs(Mathf.Cos(Time.time / 10)) / 2,
+                r: Mathf.Abs(Mathf.Cos(transform.position.x / 200)) / 5,
+                g: Mathf.Abs(Mathf.Cos(transform.position.y / 200)) / 4,
+                b: Mathf.Abs(Mathf.Cos(transform.position.z / 200)) / 4,
                 a: .8f);
     }
 
