@@ -11,6 +11,7 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         slowlyVaryBackgroundColor();
+        updateZoom();
         updatePositionToFollowShip();
         updateRotationToLookAtShip();
     }
@@ -32,7 +33,8 @@ public class CameraScript : MonoBehaviour
         Vector3 shipLoc = ship.transform.position;
         Vector3 backness = -ship.transform.forward * distanceBehindShip_;
         Vector3 upness = ship.transform.up * distanceAboveShip_;
-        Vector3 newPosition = shipLoc + backness + upness;
+        Vector3 distance = (backness + upness) * zoomLevel.Multiplier();
+        Vector3 newPosition = shipLoc + distance;
 
         // This means that we always move a little bit closer to being pointed
         // in the direction that we want to be (with some kind of taylor series
@@ -51,5 +53,35 @@ public class CameraScript : MonoBehaviour
         GameObject ship = GameManager.instance.ship_;
         transform.LookAt(ship.transform, ship.transform.up);
         transform.Rotate(angleToFaceDownwards_, 0, 0);
+    }
+
+
+    /** How far the camera is from the user's spaceship. */
+    ZoomLevel zoomLevel = new ZoomLevel();
+
+    void updateZoom()
+    {
+        if (Input.GetKeyDown("z"))
+        {
+            zoomLevel.CycleNext();
+            Debug.Log("zoomMultiplier: " + zoomLevel.Multiplier());
+        }
+    }
+
+    class ZoomLevel
+    {
+        static float[] zoomLevels = { 1f, 3f, 5f };
+
+        int currIdx;
+
+        public float Multiplier()
+        {
+            return zoomLevels[currIdx % zoomLevels.Length];
+        }
+
+        public void CycleNext()
+        {
+            ++currIdx;
+        }
     }
 }
