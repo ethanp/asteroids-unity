@@ -1632,7 +1632,7 @@ MonoBehaviour:
   forwardThrusterClip: {fileID: 1177185455}
   reverseThrusterClip: {fileID: 1177185454}
   turnThursterClip: {fileID: 1177185453}
-  startPaused: 1
+  startPaused: 0
 --- !u!82 &1177185451
 AudioSource:
   m_ObjectHideFlags: 0
